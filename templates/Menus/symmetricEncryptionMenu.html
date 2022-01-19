@@ -1,0 +1,28 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <div>
+      <h2 class="center">Symmetric encryption menu
+        (  
+      {% if algo == "1" %}
+      DES
+      {% endif %}
+      {% if algo == "2" %}
+      AES-256
+      {% endif %}
+      )
+      </h2>
+    <p class="menu">
+        1- Chiffrement symétrique <br>
+        2- Déchiffrement symétrique <br>
+        0- Retour au menu principal
+    </p>
+  </div>
+  <form name="symmetricEnDecMenu">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    <p class="option">>>>  Option:  <input type="text" name="endec" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}

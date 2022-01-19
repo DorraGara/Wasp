@@ -1,0 +1,21 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeCodage">
+        X
+  </button>
+  <h2 class="center">Encode Base64</h2>
+  <div>
+    <div id="decodingContainer" class="containerOverflow flexcroll">
+        <p class="functionnalityMenu">
+          -- Message à décoder:
+        </p>
+    </div>
+  </div>
+  <form name="decode">
+    <p class="option">>>>  Message:  <input type="text" name="message" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeAsymmetricEncryption">
+        X
+  </button>
+  <div  id="dialogPassphraseEnc" class="dialogBox" title="Passphrase">
+    <input type="password" name="passphrase" required class="inputMenu" autofocus>
+  </div>
+  <div>
+    <h2 class="center">Asymmetric encryption menu (  
+      {% if algo == "1" %}
+      ElGamal
+      {% endif %}
+      {% if algo == "2" %}
+      RSA
+      {% endif %}
+      )
+    </h2>
+    <div id="asymmetricEncryptionContainer" class="containerOverflow flexcroll">
+       
+        <p class="functionnalityMenu">
+            -- Message à chiffrer: 
+        </p>
+    </div>
+  </div>
+  <form name="asymmetricEncryption">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    <p class="option">>>>  Message:  <input type="text" name="message" required class="inputMenu" autofocus>
+    </p>
+    {% if algo == "1" %}
+    <p class="option">>>>  y:  <input type="text" name="y" required class="inputMenu">
+    </p>
+    <p class="option">>>>  p:  <input type="text" name="p" required class="inputMenu">
+    </p>
+    <p class="option">>>>  g:  <input type="text" name="g" required class="inputMenu">
+    </p>
+    {% endif %}
+    {% if algo == "2" %}
+    <p class="option">>>>  Public key:  <input type="text" name="publicKey" required class="inputMenu">
+    </p>
+    {% endif %}
+    <input type="submit" value="Submit" class="btn">  
+  </form>
+</div>
+{% endblock %}

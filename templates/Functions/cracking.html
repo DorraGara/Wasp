@@ -1,0 +1,42 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeCraquage">
+        X
+  </button>
+  <div>
+    <h2 class="center">Crackage (  
+      {% if algo == "1" %}
+      MD5
+      {% endif %}
+      {% if algo == "2" %}
+      SHA-128
+      {% endif %}
+      {% if algo == "3" %}
+      SHA-256
+      {% endif %}
+      &
+      {% if dictionnary == "1" %}
+      real human wordlist
+      {% endif %}
+      {% if dictionnary == "2" %}
+      full wordlist
+      {% endif %}
+      )
+    </h2>
+    <div id="crackingContainer" class="containerOverflow flexcroll">
+       
+        <p class="functionnalityMenu">
+          -- Hashé à craquer:
+        </p>
+    </div>
+  </div>
+  <form name="cracking">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    <input type="hidden" name="dictionnary" value="{{dictionnary}}" required>
+    <p class="option">>>>  Hash:  <input type="text" name="hash" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}

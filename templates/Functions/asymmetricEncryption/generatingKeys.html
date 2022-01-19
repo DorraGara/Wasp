@@ -1,0 +1,32 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeAsymmetricEncryption">
+        X
+  </button>
+  <div  id="dialogPassphraseEnc" class="dialogBox" title="Passphrase">
+    <input type="password" name="passphrase" required class="inputMenu" autofocus>
+  </div>
+  <div>
+    <h2 class="center">Asymmetric key creation menu (  
+      {% if algo == "1" %}
+      ElGamal
+      {% endif %}
+      {% if algo == "2" %}
+      RSA
+      {% endif %}
+      )
+    </h2>
+    <div id="asymmetricKeygenContainer" class="containerOverflow flexcroll">
+        <p class="functionnalityMenu">
+            -- Clés génerées: 
+        </p>
+    </div>
+  </div>
+  <form name="asymmetricKeygen">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    <input type="submit" value="generate keys" class="btn">  
+  </form>
+</div>
+{% endblock %}

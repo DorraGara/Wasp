@@ -1,0 +1,48 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeAsymmetricEncryption">
+        X
+  </button>
+  <div id="dialogPassphraseDec" class="dialogBox" title="Passphrase">
+    <input type="password" name="passphrase" required class="inputMenu" autofocus>
+  </div>
+  <div>
+    <h2 class="center">Asymmetric decryption menu (  
+      {% if algo == "1" %}
+      ElGamal
+      {% endif %}
+      {% if algo == "2" %}
+      RSA
+      {% endif %}
+      )
+    </h2>
+    <div id="asymmetricDecryptionContainer" class="containerOverflow flexcroll">
+       
+        <p class="functionnalityMenu">
+            -- Message à déchiffrer: 
+        </p>
+    </div>
+  </div>
+  <form name="asymmetricDecryption">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    {% if algo == "1" %}
+    <p class="option">>>>  x:  <input type="text" name="x" required class="inputMenu">
+    </p>
+    <p class="option">>>>  p:  <input type="text" name="p" required class="inputMenu">
+    </p>
+    <p class="option">>>>  Message (c1):<input type="text" name="c1" required class="inputMenu">
+    </p>
+    <p class="option">>>>  Message (c2):<input type="text" name="c2" required class="inputMenu">
+    </p>
+    {% endif %}
+    {% if algo == "2" %}
+    <p class="option">>>>  Message:  <input type="text" name="message" required class="inputMenu" autofocus> </p>
+    <p class="option">>>>  Private key:  <input type="text" name="privateKey" required class="inputMenu">
+    </p>
+    {% endif %}
+    <input type="submit" value="Submit" class="btn">	  
+  </form>
+</div>
+{% endblock %}

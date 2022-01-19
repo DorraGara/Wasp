@@ -1,0 +1,23 @@
+{% extends "dashboard.html" %}
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton" id="signout">
+    X
+  </button>
+  <div>
+      <h2 class="center">Wasp menu</h3>
+    <p class="menu">
+        1- Codage et décodage d'un message <br>
+        2- Hashage d'un message <br>
+        3- Craquage d'un message haché <br>
+        4- Chiffrement et déchiffrement symétrique d'un message <br>
+        5- Chiffrement et déchiffrement asymétrique d'un message <br>
+        6- Communication sécurisée entre deux clients (ChatRoom)<br>
+    </p>
+  </div>
+  <form name="mainMenu">
+    <p class="option">>>>  Option:  <input type="text" name="option" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}

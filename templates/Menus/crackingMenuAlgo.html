@@ -1,0 +1,19 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <div>
+      <h2 class="center">Craquage menu</h3>
+    <p class="menu">
+        1- MD5 <br>
+        2- SHA-128 <br>
+        3- SHA-256 <br>
+        0- Retour au menu principal
+    </p>
+  </div>
+  <form name="crackingAlgoMenu">
+    <p class="option">>>>  Option:  <input type="text" name="option" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}

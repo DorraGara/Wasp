@@ -1,0 +1,34 @@
+{% extends "dashboard.html" %}
+
+{% block menu %}
+<div class="cardMainMenu">
+  <button class="xButton closeSymmetricEncryption">
+        X
+  </button>
+  <div  id="dialogPassphraseEnc" class="dialogBox" title="Passphrase">
+    <input type="password" name="passphrase" required class="inputMenu" autofocus>
+  </div>
+  <div>
+    <h2 class="center">Symmetric encryption menu (  
+      {% if algo == "1" %}
+      DES
+      {% endif %}
+      {% if algo == "2" %}
+      AES-256
+      {% endif %}
+      )
+    </h2>
+    <div id="symmetricEncryptionContainer" class="containerOverflow flexcroll">
+       
+        <p class="functionnalityMenu">
+            -- Message à chiffrer: 
+        </p>
+    </div>
+  </div>
+  <form name="symmetricEncryption">
+    <input type="hidden" name="algo" value="{{algo}}" required>
+    <p class="option">>>>  Message:  <input type="text" name="message" required class="inputMenu" autofocus>
+    </p>  
+  </form>
+</div>
+{% endblock %}
