@@ -1,0 +1,418 @@
+/*
+  Colors: http://getuicolors.com
+*/
+
+/* Setup */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4&display=swap');
+:root {
+  --black: #000000;
+  --almost-black: #263238;
+  --white: #ffffff;
+  --almost-white: #FBFBFB;
+  --grey-light: #CFD8DC;
+  --grey: #B0BEC5;
+  --grey-medium: #78909C;
+  --grey-dark: #455A64;
+  --primary: #1E88E5;
+  --primary-dark: #1976D2;
+  --secondary: #CFD8DC;
+  --secondary-dark: #B0BEC5;
+  --red: #EF4836;
+  --green: #40eb31;
+  --medium-green: #2cb41f;
+  --dark-green: #1c5517;
+
+}
+
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Source Serif 4', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--black);
+  background: var(--black);
+}
+
+/* Typography */
+.center {
+  text-align: center;
+}
+
+h1 {
+  margin: 0.5em 0 1em;
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--green);
+}
+
+h2 {
+  margin: 0.6em 0 1.2em;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--green);
+}
+h3 {
+  margin: 0.5em 0 1em;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--green);
+}
+
+/* Cards */
+.card-wrapper {
+  margin: 0 auto;
+  padding: 5vh 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.card-wrapper-chatroom {
+  margin: 0 auto;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+.card {
+  margin: 0 30px 12px;
+  padding: 20px 40px;
+  width: 460px;
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+  background: var(--black);
+}
+.cardMainMenu {
+  margin: 0 30px;
+  padding: 20px 40px;
+  min-width: 80vw;
+  height: 85vh;
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.cardUserList {
+  margin: 10px 30px;
+  padding: 20px 40px;
+  min-width: 10vw;
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+  background: var(--black);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.cardChatroom {
+  margin: 0 30px;
+  padding: 20px 40px;
+  height: 70vh;
+  min-width: 65vw;
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+  background: var(--black);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+  float: left;
+}
+.subcard p {
+  color: var(--dark-green);
+}
+ .menu {
+  color: var(--medium-green);
+ }
+.subcard a {
+  color: var(--green);
+  padding: 4px;
+}
+  p {
+    margin:0;
+  }
+
+/* Forms */
+form {
+  transition: opacity .15s ease;
+}
+
+form.loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+label {
+  margin: 0 0 2px;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: var(--medium-green);
+  display: block;
+}
+
+.field {
+  margin: 0 0 24px;
+  padding: 11px 16px 9px;
+  width: 100%;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--medium-green);
+  border: 1px solid var(--black);
+  border-bottom: 1px solid var(--dark-green);
+  border-radius: 4px;
+  display: block;
+  background: var(--black);
+  transition: border-color .15s ease;
+}
+
+.field:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+.error {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--red);
+}
+
+.error--hidden {
+  display: none;
+}
+
+/* Buttons */
+.btn {
+  margin: 0 0 24px;
+  padding: 11px 30px 10px;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--black);
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  background: var(--green);
+  transition: color .15s ease, background-color .15s ease;
+}
+
+/*
+.btn:hover {
+
+}
+*/
+.btn--secondary {
+  color: var(--almost-black);
+  background: var(--secondary);
+}
+
+.btn--secondary:hover {
+  background: var(--secondary-dark);
+}
+
+input[type=submit] {
+  margin: 34px auto 24px;
+  display: block;
+}
+ .xButton {
+    position: absolute;
+    right: 13px;
+    top: 10px;
+    background: none;
+	  color: var(--green);
+	  border: none;
+	  padding: 0;
+	  font: inherit;
+	  cursor: pointer;
+	  outline: inherit;
+
+ }
+/*menu*/
+.inputMenu {
+  margin: 0 0 0;
+  padding: 11px 16px 9px;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--medium-green);
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  background: var(--black);
+  transition: border-color .15s ease;
+}
+.inputMenu:focus {
+  border-color: var(--black);
+  outline: none;
+}
+.option {
+  color: var(--dark-green);
+}
+/* @keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
+.option::before {
+  content: "";
+  width: 5px;
+  height: 20px;
+  background: var(--green);
+  display: inline-block;
+  animation: cursor-blink 1.5s steps(2) infinite;
+} */
+.messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.messages li {
+  color:var(--almost-white);
+  font-size: 16px;
+}
+#userslist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#userslist .user{
+  color:var(--grey-dark);
+  font-size: 16px;
+  text-decoration: none;
+  background:none;
+  border:none; 
+  cursor: pointer;
+}
+.dialogBox {
+  background-color: var(--black);
+  color: var(--dark-green);
+  padding: 0 10px 5px;
+  text-align: center;
+
+}
+.ui-dialog {
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+  justify-content: center;
+  padding: 5px;
+  z-index: 50;
+}
+.ui-button {
+  background-color: var(--black);
+  color: var(--green);
+  border-radius: 5px;
+  border: 1px solid var(--green);
+
+}
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+.ui-dialog-buttonset {
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
+
+}
+.ui-dialog-titlebar {
+  color: var(--green);
+  text-align: center;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .card-wrapper {
+    padding: 30px 0 0;
+  }
+  .card {
+    margin: 0 0 30px;
+    width: 90%;
+    border-radius: 2px;
+    /*border-color: var(--green);*/
+  }
+  .card-wrapper-chatroom {
+    flex-direction: column;
+  }
+  .cardUserList {
+    min-width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .cardChatroom {
+    min-width: 80vw;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .cardUserList {
+    height: 70vh;
+  }
+}
+
+.overlay-styles {
+  height: 100%;
+  width: 100%;
+  position: fixed; 
+  z-index: 10; 
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0, 0.81); 
+  overflow-x: hidden; 
+  transition: 2s;   
+}
+
+.functionnalityMessage {
+  color: var(--almost-white);
+  margin:5px;
+  overflow-wrap: break-word;
+}
+.functionnalityMenu {
+  color: var(--medium-green);
+  margin:5px;
+  overflow-wrap: break-word;
+ }
+.containerOverflow {
+  overflow-y: scroll;
+  height: 52vh;
+  scrollbar-color: dark;
+}
+
+/* Let's get this party started */
+.flexcroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+.flexcroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+.flexcroll::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: var(--green); 
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
