@@ -514,3 +514,154 @@ $("form[name=asymmetricDecryption").submit(function(e) {
     }
   });
 });
+
+// Chatroom and private messaging (socket)
+$(document).ready(function() {
+  if (window.location.pathname.indexOf("/dashboard/chatroom") == 0) {
+    $("#dialogRequest").dialog({
+      autoOpen: false,
+      modal: true
+    });
+    var socket = io.connect('http://127.0.0.1:5000');
+    var privateKey;
+    socket.on('connect', function() {
+      var keypair = forge.pki.rsa.generateKeyPair({bits: 2048, e: 0x10001});
+      privateKey = keypair.privateKey;
+      socket.emit('addUser',forge.pki.publicKeyToPem(keypair.publicKey));
+    });
+  
+    socket.on('messageChatroom', function(data) {
+      $("#messages").append('<li>'+ data +'</li>');
+    });
+    socket.on('addedUser', function(data) {
+      $("#userslist").append('<li> <button class="user" id="onlineUser'+data.replace(/ /g,'')+'">'+ data +'</button> </li>');
+    });
+    socket.on('deletedUser', function(data) {
+      $('#onlineUser'+data.replace(/ /g,'')).remove();
+  
+    });
+    socket.on('initUserList', function(data) {
+      Object.keys(data).forEach(function(username, id){
+        $("#userslist").append('<li> <button class="user" id="onlineUser'+username.replace(/ /g,'')+'">'+ username +'</button> </li>');
+      })
+    });
+    $( "#userslist" ).on("click",".user" ,function(e) {
+      e.preventDefault();
+      var username = $(this).text();
+      socket.emit('privateMessageRequest', username);
+    });
+    $("form[name=broadcastMessage").submit( function(e) {
+      e.preventDefault();
+      var message = $('#broadcastMessage').val();
+      socket.emit('messageChatroom', message);
+      $('#broadcastMessage').val('');
+    });
+    $("#closeChatroom").click(function(e){
+      e.preventDefault();
+      socket.emit("signout");
+      window.location.assign("/dashboard");
+    });
+    socket.on('openPrivateChat', function(username) {
+      var win = window.open('http://127.0.0.1:5000/dashboard/chatroom/privateChat?user='+username, '_blank');
+      if (win) {
+      //Browser has allowed it to be opened
+        win.focus();
+      } else {
+      //Browser has blocked it
+      alert('Please allow popups for this website');
+      }
+    });
+    socket.on('privateRequest', function(username) {
+      if (window.location.pathname == "/dashboard/chatroom") {
+      var overlay = $('<div></div>');
+      $("body").append(overlay); 
+      overlay.fadeIn(700).addClass('overlay-styles');;
+      $("#dialogRequest").dialog({
+        buttons : {
+          "Confirm" : function() {
+            var win = window.open('http://127.0.0.1:5000/dashboard/chatroom/privateChat?user='+username, '_blank');
+            if (win) {
+            //Browser has allowed it to be opened
+              win.focus();
+            } else {
+            //Browser has blocked it
+            alert('Please allow popups for this website');
+            }
+            socket.emit('acceptMessageRequest', username);
+            $(this).dialog("close");
+            overlay.fadeOut(700).remove();
+          },
+          "Cancel" : function() {
+            $(this).dialog("close");
+            overlay.fadeOut(700).remove();
+          }
+        },
+        modal : true,
+        classes: {
+          "ui-dialog" : "ui-corner-all custom-red"
+        },
+        title: "Encrypted message request",
+        show: {
+          effect: 'fade',
+          duration: 1000
+        },
+        hide: {
+          effect: 'fade',
+          duration: 700
+        },
+        open: function() {
+          var markup = username + ' wants to text you! </br> Would you like to exchange keys?';
+          $(this).html(markup);
+        }
+  
+      });
+  
+      $("#dialogRequest").dialog("open");
+    }
+    });
+  if (window.location.pathname.indexOf("/dashboard/chatroom/privateChat") == 0) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const username = urlParams.get('user')
+    setTimeout(()=>{
+      socket.emit('exchangePublicKey',username)
+    },5000)
+     // private messaging
+     socket.on('exchangePublicKey', function(data) {
+      var publicKey = data["publicKey"]
+      var fromUser = data["fromUser"]
+      $("#"+fromUser+"").append('<li class="messages">******Key exchange******</li>');
+      $("form[name=privateMessage").append('<input type="hidden" name="publicKey" value="'+publicKey+'" >')
+    });
+    socket.on('messagePrivate', function(data) {
+      var message = data["message"]
+      var fromUser = data["fromUser"]
+      var decodedMessage = forge.util.decode64(message);
+      var plaintextBytes = privateKey.decrypt(decodedMessage)
+      var decrypted = forge.util.decodeUtf8(plaintextBytes)
+      $("#"+fromUser+"").append('<li class="messages">'+ fromUser +' :'+decrypted +'</li>');
+    });
+    $("form[name=privateMessage").submit( function(e) {
+      e.preventDefault();
+      var message = $('#privateMessage').val();
+      var toUser =  $('input[name=user').val();
+      var fromUser =  $('input[name=fromUser').val();
+      var publicKeyPEM = $('input[name=publicKey').val();
+      var publicKey = forge.pki.publicKeyFromPem(publicKeyPEM);
+      var plaintextBytes = forge.util.encodeUtf8(message);
+      var encrypted = publicKey.encrypt(plaintextBytes);
+      var base64 = forge.util.encode64(encrypted);
+      var data = {
+        'message': base64,
+        'user': toUser,
+        'publicKey': publicKeyPEM
+      }
+      var formStr = JSON.stringify(data, null, 2);
+      var datastr = JSON.parse(formStr);
+          $("#"+toUser).append('<li class= "messages">'+ fromUser +': ' +message +'</li>');
+      socket.emit('messagePrivate', datastr);
+      $('#privateMessage').val('');
+    });    
+  }
+}
+});

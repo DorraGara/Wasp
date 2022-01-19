@@ -110,3 +110,13 @@ def asymmetricDecryptionMenuScreen():
 def asymmetricKeygenMenuScreen():
   algo = request.args.get('algo')
   return render_template('Functions/asymmetricEncryption/generatingKeys.html', algo = algo)
+
+# Chatroom
+@app.route('/dashboard/chatroom')
+def chatroomScreen():
+  return render_template('chatroom.html')
+
+@app.route('/dashboard/chatroom/privateChat')
+def privateChatScreen():
+  user = request.args.get('user')
+  return render_template('privateChat.html', user = user)

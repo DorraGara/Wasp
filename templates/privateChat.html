@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-wrapper">
+    <div class="cardMainMenu">
+        <div>
+            <h2 class="center">Private chat with {{ user }}</h3>
+              <ul class="messages" id="{{user}}">
+                
+              </ul>
+        </div>
+        <form name="privateMessage">
+          <input type="hidden" name="user" value="{{user}}" required>
+          <input type="hidden" name="fromUser" value=" {{ session['user']['name'] }}" required>
+          <p class="option">>>>  {{ session['user']['name'] }}:  <input type="text" name="option" required class="inputMenu" id="privateMessage" autofocus>
+          </p>  
+        </form>
+      </div>    
+</div>
+
+{% endblock %}

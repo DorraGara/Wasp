@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-wrapper-chatroom" id="chatroomContainer">
+  <div id="dialogRequest" class="dialogBox" title="Connection request">
+    Are you sure about this?
+  </div>
+    <div class="cardChatroom">
+      <button class="xButton" id="closeChatroom">
+        X
+      </button>
+        <div>
+            <h2 class="center">Chatroom</h3>
+              <ul id="messages" class="messages">
+                
+              </ul>
+        </div>
+        <form name="broadcastMessage">
+          <p class="option">>>>  {{ session['user']['name'] }}:  <input type="text" name="option" required class="inputMenu" id="broadcastMessage" autofocus>
+          </p>  
+        </form>
+      </div>
+      <div class="cardUserList">
+        <div>
+            <h2 class="center">Users</h3>
+              <ul id="userslist">
+                
+              </ul>
+        </div>
+      </div>  
+</div>
+
+{% endblock %}
