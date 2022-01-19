@@ -22,4 +22,5 @@ db = get_database()
 
 # Routes
 from user import routes
+from menu import routes
 from routes import routes
