@@ -2,12 +2,25 @@ $(".dialogBox").dialog({
   autoOpen: false,
   modal: true
 });
+$("input[name=passwordCheck").on('input', function(){
+  passwordCheck = $('input[name=passwordCheck');
+  password = $('input[name=password');
+  if (password.val() != passwordCheck.val()) {
+    console.log(passwordCheck.val())
+    $("#passwordError").text("Passwords are not equal")
+  } else {
+    $("#passwordError").text("")
+
+  }
+})
 $("form[name=signup_form").submit(function(e) {
   var $form = $(this);
   var $error = $form.find(".error");
   var data = $form.serialize();
-
-  $.ajax({
+  passwordCheck = $('input[name=passwordCheck');
+  password = $('input[name=password');
+  if (password.val() == passwordCheck.val()) {
+    $.ajax({
     url: "/user/signup",
     type: "POST",
     data: data,
@@ -18,7 +31,8 @@ $("form[name=signup_form").submit(function(e) {
     error: function(resp) {
       $error.text(resp.responseJSON.error).removeClass("error--hidden");
     }
-  });
+    });
+  }
 
   e.preventDefault();
 });

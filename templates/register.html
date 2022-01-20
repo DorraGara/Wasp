@@ -7,7 +7,7 @@
 
       <h1 class="center">Create an Account</h1>
 
-      <form name="signup_form">
+      <form name="signup_form" autocomplete="off">
 
         <label for="name">Name</label>
         <input type="text" name="name" class="field" required>
@@ -18,6 +18,9 @@
         <label for="password">Password</label>
         <input type="password" name="password" class="field" required>
 
+        <label for="passwordCheck">Password check</label>
+        <input type="password" name="passwordCheck" class="field" required>
+        <p id="passwordError"></p>
         <p class="error error--hidden"></p>
 
         <input type="submit" value="Sign Up" class="btn">
