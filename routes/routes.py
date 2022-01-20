@@ -7,7 +7,10 @@ def login_required(f):
   @wraps(f)
   def wrap(*args, **kwargs):
     if 'logged_in' in session:
-      return f(*args, **kwargs)
+      if 'activated' in session:
+        return f(*args, **kwargs)
+      else:
+        return redirect('/')
     else:
       return redirect('/')
   

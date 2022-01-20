@@ -4,16 +4,14 @@ from app import db
 import uuid
 
 class User:
-
   def start_session(self, user):
     del user['password']
     session['logged_in'] = True
     session['user'] = user
+    session['activated'] = False
     return jsonify(user), 200
 
   def signup(self):
-    print(request.form)
-
     # Create the user object
     user = {
       "_id": uuid.uuid4().hex,
@@ -31,7 +29,6 @@ class User:
 
     if db.users.insert_one(user):
       return self.start_session(user)
-
     return jsonify({ "error": "Signup failed" }), 400
   
   def signout(self):
@@ -46,5 +43,16 @@ class User:
 
     if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
       return self.start_session(user)
+      #return codeVerifMail.sendEmail(user)
     
     return jsonify({ "error": "Invalid login credentials" }), 401
+
+  def verifCode(self,code):
+    user = session["user"]
+    codedb = db.codes.find_one({ "email": user["email"] })
+    if (codedb["code"] == code):
+      session["activated"] = True
+      return jsonify(user),200
+    else:
+      return jsonify({ "error": "Invalid code" }), 401
+
