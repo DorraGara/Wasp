@@ -2,7 +2,9 @@ from pathlib import Path
 from .hashing import Hashing
 
 dictionnary = {
-    1: open(Path(__file__).absolute().parent / "dictionnaries/realhuman_phill.txt", "rb"),
+    1: open(Path(__file__).absolute().parent / "dictionnaries/shortDictionnary.txt", "rb"),
+    2: open(Path(__file__).absolute().parent / "dictionnaries/realhuman_phill.txt", "rb"),
+
 }
 class Cracking:
     @staticmethod
