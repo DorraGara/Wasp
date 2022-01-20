@@ -611,7 +611,7 @@ $(document).ready(function() {
      socket.on('exchangePublicKey', function(data) {
       var publicKey = data["publicKey"]
       var fromUser = data["fromUser"]
-      $("#"+fromUser+"").append('<li class="messages">******Key exchange******</li>');
+      $("#"+fromUser+"").append('<li class="alertMessages">******Key exchange******</li>');
       $("form[name=privateMessage").append('<input type="hidden" name="publicKey" value="'+publicKey+'" >')
     });
     socket.on('messagePrivate', function(data) {
@@ -643,6 +643,17 @@ $(document).ready(function() {
       socket.emit('messagePrivate', datastr);
       $('#privateMessage').val('');
     });    
+    $(window).on("beforeunload", function() {
+      var toUser =  $('input[name=user').val(); 
+      socket.emit('userExit', toUser )
+    });
+    socket.on('userExitPrivateChat', function(fromUser) {
+      $("#"+fromUser+"").append('<li class="alertMessages">'+ fromUser +' left the conversation !</li>');
+      $("#"+fromUser+"").append('<li class="alertMessages"> Window will close in 10 seconds !</li>');
+      setTimeout(function(){
+        window.close();
+       },10000);
+    });
   }
 }
 });

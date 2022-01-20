@@ -82,7 +82,6 @@ def exchangePublicKey(toUser):
 
 @socketio.on('messagePrivate')
 def handleMessagePrivate(data):
-  print(data)
   msg = data["message"]
   toUser = data["user"]
   toUsersid = users[toUser]
@@ -92,5 +91,11 @@ def handleMessagePrivate(data):
     'message':msg
   }
   socketio.emit('messagePrivate', dataSend, room=toUsersid)
+
+@socketio.on('userExit')
+def userExitPrivateChat(toUser):
+  toUsersid = users[toUser]
+  fromUser =  session['user']['name']
+  socketio.emit('userExitPrivateChat', fromUser, room=toUsersid)
     
 socketio.run(app)
