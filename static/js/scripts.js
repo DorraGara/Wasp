@@ -1,5 +1,8 @@
+$(".dialogBox").dialog({
+  autoOpen: false,
+  modal: true
+});
 $("form[name=signup_form").submit(function(e) {
-
   var $form = $(this);
   var $error = $form.find(".error");
   var data = $form.serialize();
@@ -91,9 +94,6 @@ $("form[name=codageMenu").submit(function(e) {
     case "2":
       window.location.assign("/dashboard/codage/decoding");
       break;
-    case "0":
-      window.location.assign("/dashboard");
-    break;
     default:
       window.location.assign("/dashboard/codage");
     }
@@ -103,40 +103,25 @@ $("form[name=codageMenu").submit(function(e) {
 $("form[name=crackingAlgoMenu").submit(function(e) {
   e.preventDefault();
   var algorithm = $("input[name=option").val();
-  if (algorithm == "0") {
-    window.location.assign("/dashboard");
-  } else {
-    window.location.assign("/dashboard/cracking/algorithm?algo="+algorithm);
-  }
+  window.location.assign("/dashboard/cracking/algorithm?algo="+algorithm);
 });
 $("form[name=crackingWordlistMenu").submit(function(e) {
   e.preventDefault();
   var dictionnary = $("input[name=dictionnary").val();
   var algorithm = $("input[name=algo").val();
-  if (dictionnary == "0") {
-    window.location.assign("/dashboard");
-  } else {
-    window.location.assign("/dashboard/cracking/dictionnary?algo="+algorithm+"&dictionnary="+dictionnary);
-  }
+  window.location.assign("/dashboard/cracking/dictionnary?algo="+algorithm+"&dictionnary="+dictionnary);
 });
 
 $("form[name=symmetricEncryptionAlgoMenu").submit(function(e) {
   e.preventDefault();
   var algorithm = $("input[name=option").val();
-  if (algorithm == "0") {
-    window.location.assign("/dashboard");
-  } else {
-    window.location.assign("/dashboard/symmetric/algorithm?algo="+algorithm);
-  }
+  window.location.assign("/dashboard/symmetric/algorithm?algo="+algorithm);
 });
 $("form[name=symmetricEnDecMenu").submit(function(e) {
   e.preventDefault();
   var endec = $("input[name=endec").val();
   var algorithm = $("input[name=algo").val();
   switch (endec) {
-    case "0":
-      window.location.assign("/dashboard");
-      break;
     case "1":
       window.location.assign("/dashboard/symmetric/encryption?algo="+algorithm);
       break;
@@ -151,21 +136,13 @@ $("form[name=symmetricEnDecMenu").submit(function(e) {
 $("form[name=hashingMenu").submit(function(e) {
   e.preventDefault();
   var algorithm = $("input[name=option").val();
-  if (algorithm == "0") {
-    window.location.assign("/dashboard");
-  } else {
-    window.location.assign("/dashboard/hashing/algorithm?algo="+algorithm);
-  }
+  window.location.assign("/dashboard/hashing/algorithm?algo="+algorithm);
 });
 
 $("form[name=asymmetricEncryptionAlgoMenu").submit(function(e) {
   e.preventDefault();
   var algorithm = $("input[name=option").val();
-  if (algorithm == "0") {
-    window.location.assign("/dashboard");
-  } else {
-    window.location.assign("/dashboard/asymmetric/algorithm?algo="+algorithm);
-  }
+  window.location.assign("/dashboard/asymmetric/algorithm?algo="+algorithm);
 });
 $("form[name=asymmetricEnDecMenu").submit(function(e) {
   e.preventDefault();
@@ -209,7 +186,10 @@ $(".closeAsymmetricEncryption").click(function(e){
   e.preventDefault();
   window.location.assign("/dashboard/asymmetric");
 });
-
+$(".closeMain").click(function(e){
+  e.preventDefault();
+  window.location.assign("/dashboard");
+});
 // Functionnalities requests
 $("form[name=cracking").submit(function(ee) {
   ee.preventDefault();
@@ -308,10 +288,6 @@ $("form[name=decode").submit(function(e) {
   });
 
   e.preventDefault();
-});
-$(".dialogBox").dialog({
-  autoOpen: false,
-  modal: true
 });
 $("form[name=symmetricEncryption").submit(function(e) {
   e.preventDefault();
@@ -472,7 +448,9 @@ $("form[name=asymmetricEncryption").submit(function(e) {
   var $error = $form.find(".error");
   var data = $form.serialize();
   var algorithm = $("input[name=algo").val();
-
+  var message = $("input[name=message").val();
+  $("#asymmetricEncryptionContainer").append('<p class="functionnalityMessage">'+message+'</p>');
+  $("input[name=message").val('');
   $.ajax({
     url: "/menu/asymmetric/encrypting",
     type: "POST",
@@ -499,6 +477,9 @@ $("form[name=asymmetricDecryption").submit(function(e) {
   var $form = $(this);
   var $error = $form.find(".error");
   var data = $form.serialize();
+  var message = $("input[name=message").val();
+  $("#asymmetricDecryptionContainer").append('<p class="functionnalityMessage">'+message+'</p>');
+  $("input[name=message").val('');
   $.ajax({
     url: "/menu/asymmetric/decrypting",
     type: "POST",

@@ -384,12 +384,12 @@ input[type=submit] {
 .functionnalityMessage {
   color: var(--almost-white);
   margin:5px;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 .functionnalityMenu {
   color: var(--medium-green);
   margin:5px;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
  }
 .containerOverflow {
   overflow-y: scroll;
