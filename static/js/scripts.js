@@ -26,7 +26,66 @@ $("form[name=signup_form").submit(function(e) {
     data: data,
     dataType: "json",
     success: function(resp) {
-      window.location.assign("/dashboard");
+      $.ajax({
+        url: "/user/sendEmail",
+        type: "POST",
+        data: data,
+        dataType: "json",
+        success: function(resp) {
+          var overlay = $('<div></div>');
+          $("body").append(overlay); 
+          overlay.fadeIn(700).addClass('overlay-styles');
+          $("#dialogVerifCode").dialog({
+            buttons : {
+              "Confirm" : function() {
+                var code = $("input[name=code").val();
+                var form = {
+                  'code': code,
+                }
+                var formStr = JSON.stringify(form, null, 2);
+                var data = JSON.parse(formStr);
+                $.ajax({
+                  url: "/user/verifCode",
+                  type: "POST",
+                  data: data,
+                  dataType: "json",
+                  success: function(resp) {
+                    window.location.assign("/dashboard");
+                  },
+                  error: function(resp) {
+                    $(this).dialog("close");
+                    overlay.fadeOut(700).remove();
+                    $error.text(resp.responseJSON.error).removeClass("error--hidden");
+                    
+                  }
+          });
+                },
+                "Cancel" : function() {
+                  $(this).dialog("close");
+                  overlay.fadeOut(700).remove();
+                  $("input[name=code").val('');
+                }
+              },
+              modal : true,
+              classes: {
+                "ui-dialog" : "ui-corner-all"
+              },
+              title: "Verification code",
+              show: {
+                effect: 'fade',
+                duration: 700
+              },
+              hide: {
+              effect: 'fade',
+              duration: 700
+              },
+            });
+            $("#dialogVerifCode").dialog("open");
+        },
+        error: function(resp) {
+          $error.text(resp.responseJSON.error).removeClass("error--hidden");
+        }
+      });
     },
     error: function(resp) {
       $error.text(resp.responseJSON.error).removeClass("error--hidden");
