@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = bytes(os.getenv('APP_SECRET'))
+app.secret_key = os.getenv('APP_SECRET').encode()
 
 # Database
 def get_database():
