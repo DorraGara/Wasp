@@ -12,6 +12,7 @@ class User:
     return jsonify(user), 200
 
   def signup(self):
+    print(request.form)
     # Create the user object
     user = {
       "_id": uuid.uuid4().hex,
@@ -21,7 +22,7 @@ class User:
     }
 
     # Encrypt the password
-    user['password'] = pbkdf2_sha256.encrypt(user['password'])
+    user['password'] = pbkdf2_sha256.encrypt(str(user['password']))
 
     # Check for existing email address
     if db.users.find_one({ "email": user['email'] }):
@@ -29,7 +30,7 @@ class User:
 
     if db.users.insert_one(user):
       return self.start_session(user)
-    return jsonify({ "error": "Signup failed" }), 400
+    return jsonify({ "error": "Signup failed" }), 500
   
   def signout(self):
     session.clear()
