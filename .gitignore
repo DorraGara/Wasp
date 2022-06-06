@@ -4,3 +4,4 @@ env/
 *.pyc
 .env
 .flaskenv
+testing/end2end/node_modules
