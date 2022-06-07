@@ -16,7 +16,8 @@ python -m pytest .\testing\integration_testing.py
 End to end test:
 node ./node_modules/cypress/bin/cypress open
 <img src="/testing/end2end/cypress/screenshots/browser.PNG" alt="e2e_test"/>
-For more end to end screenshots, check the screenshots folder under /testing/end2end/screenshots.
+For more end to end screenshots, check the <a href="https://github.com/DorraGara/Wasp/tree/main/testing/end2end/cypress/screenshots">screenshots folder</a>
+
 
 UAT:
 <a href="https://github.com/DorraGara/Wasp/blob/main/testing/UAT.pdf">UAT pdf</a>
